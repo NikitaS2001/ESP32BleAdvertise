@@ -52,14 +52,27 @@ class SimpleBLE {
          * @return true on success
          *
          */
+        
+        bool advertise(uint64_t data);
+        
+        /**
+         * Advertises data on Manufacturer Data field
+         *
+         * @param[in] data  uint64_t with the message to be transmitted
+         *
+         * @param[in] size  size of the uint64_t
+         *
+         * @return true on success
+         *
+         */
         bool advertise(String data);
 
         /**
          * Advertises data on Manufacturer Data field
          *
-         * @param[in] data  byte array with the message to be transmitted
+         * @param[in] data  String with the message to be transmitted
          *
-         * @param[in] size  size of the byte array
+         * @param[in] size  size of the String
          *
          * @return true on success
          *
@@ -69,7 +82,7 @@ class SimpleBLE {
         /**
          * Advertises data on Service Data field
          *
-         * @param[in] data  String with the message to be transmitted
+         * @param[in] data  byte with the message to be transmitted
          *
          * @return true on success
          *
@@ -79,9 +92,9 @@ class SimpleBLE {
         /**
          * Advertises data on Service Data field
          *
-         * @param[in] data  byte array with the message to be transmitted
+         * @param[in] data  String with the message to be transmitted
          *
-         * @param[in] size  size of the byte array
+         * @param[in] size  size of the String
          *
          * @return true on success
          *
@@ -99,19 +112,16 @@ class SimpleBLE {
          */
         void end(void);
 
-        private:
+    private:
             void clearAdvertiseData();
 
             void fillManufacturerData(byte* data, int size);
 
             void fillServiceData(byte* data, int size);
 
+            void uint64ToBytes(uint64_t data, byte* dest);
 
-        
-
-    private:
-        String local_name;
-    private:
+            String local_name;
 
 };
 

@@ -159,6 +159,12 @@ bool SimpleBLE::advertise(String data) {
     return advertise(dataBuffer, data.length());
 }
 
+bool SimpleBLE::advertise(uint64_t data) {
+    byte bytes[8];
+    SimpleBLE::uint64ToBytes(data, bytes);
+    return advertise(bytes, 8);
+}
+
 bool SimpleBLE::advertise(byte* data, int size) {
     clearAdvertiseData();
     fillManufacturerData(data, size);
@@ -219,3 +225,13 @@ void SimpleBLE::fillServiceData(byte* data, int size) {
     memcpy(adv_data.p_service_data, data, size);
 }
 
+void SimpleBLE::uint64ToBytes(uint64_t data, byte* dest) {
+    dest[0] = byte(data >> 8*7);
+    dest[1] = byte(data >> 8*6);
+    dest[2] = byte(data >> 8*5);
+    dest[3] = byte(data >> 8*4);
+    dest[4] = byte(data >> 8*3);
+    dest[5] = byte(data >> 8*2);
+    dest[6] = byte(data >> 8*1);
+    dest[7] = byte(data >> 8*0);
+}
